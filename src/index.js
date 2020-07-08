@@ -1,10 +1,20 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import EnquiryList from './screens/EnquiryList/index';
+import EnquiryDetail from './screens/EnquiryDetail/index';
 
-const App = () => (
-  <View>
-    <Text>Welcome to Tutor</Text>
-  </View>
-);
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Enquiries" component={EnquiryList} />
+        <Stack.Screen name="Detail" component={EnquiryDetail} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default App;
