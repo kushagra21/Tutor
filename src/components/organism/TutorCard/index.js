@@ -18,7 +18,14 @@ class TutorCard extends Component {
     var diffTime = current.getTime() - postedDay.getTime();
     var diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
     if (Math.floor(diffDays / 365) > 0) {
-      return `${Math.floor(diffDays / 365)} years ago`;
+      if(Math.floor(diffDays / 365) === 1)
+      {
+        return `${Math.floor(diffDays / 365)} year ago`;
+      }
+      else
+      {
+        return `${Math.floor(diffDays / 365)} years ago`;
+      }
     }
     if (Math.floor(diffDays / 30) > 0) {
       return `${Math.floor(diffDays / 30)} months ago`;
