@@ -5,7 +5,7 @@ class EnquiryList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      totalData: [{id: 1, Data: 'dd'}],
+      totalData: [],
       selectedTutor: {},
     };
   }
