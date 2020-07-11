@@ -2,5 +2,6 @@ export const COLOR_ARRAY = ['steelblue', 'skyblue', 'powderblue', '#339966' , '#
 
 
 export const COLORS = {
-    background : "#FFFFFF"
+    background : "#FFFFFF",
+    disabled : "#bfbfbf"
 }

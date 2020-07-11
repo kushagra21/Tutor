@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {getPostedDay} from '../../../utils/commonUtils';
+import {View, Text, TouchableOpacity, Linking} from 'react-native';
+import {getPostedDay, randomIntFromInterval} from '../../../utils/commonUtils';
 import ProfileIcon from '../../atom/ProfileIcon/index';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {COLOR_ARRAY, COLORS} from '../../../utils/constants';
+
 class TutorCard extends Component {
+  callNumber(phoneNumber) {
+    Linking.openURL(`tel:${phoneNumber}`);
+  }
   render() {
     const {data, onClick} = this.props;
-
-    // console.log('Data : ', data);
+    var selectedColor =
+      COLOR_ARRAY[randomIntFromInterval(0, COLOR_ARRAY.length - 1)];
     return (
       <TouchableOpacity
         onPress={() => {
@@ -18,16 +24,19 @@ class TutorCard extends Component {
             style={{
               width: '10%',
               minHeight: 110,
-              backgroundColor: '#ffffff',
+              backgroundColor: COLORS.background,
               alignItems: 'center',
             }}>
-            <ProfileIcon data={data.name ? data.name.charAt(0) : ''} />
+            <ProfileIcon
+              color={selectedColor}
+              data={data.name ? data.name.charAt(0) : ''}
+            />
           </View>
           <View
             style={{
               width: '70%',
               minHeight: 110,
-              backgroundColor: '#ffffff',
+              backgroundColor: COLORS.background,
               flex: 1,
               flexDirection: 'column',
               paddingTop: 10,
@@ -50,11 +59,19 @@ class TutorCard extends Component {
             style={{
               width: '20%',
               minHeight: 110,
-              backgroundColor: '#ffffff',
+              backgroundColor: COLORS.background,
               alignItems: 'center',
               paddingTop: 10,
             }}>
             <Text style={{fontSize: 10}}>{getPostedDay(data.postedOn)}</Text>
+            <Icon
+              name="mobile-phone"
+              size={50}
+              color={data.phoneNumber ? selectedColor : COLORS.disabled}
+              onPress={() => {
+                this.callNumber(data.phoneNumber);
+              }}
+            />
           </View>
         </View>
       </TouchableOpacity>

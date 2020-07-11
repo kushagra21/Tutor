@@ -1,16 +1,13 @@
 import React from 'react';
-import {COLOR_ARRAY} from '../../../utils/constants';
-import {randomIntFromInterval} from '../../../utils/commonUtils';
 import {View, Text} from 'react-native';
 
-const ProfileIcon = ({data}) => {
+const ProfileIcon = ({data, color}) => {
   return (
     <View
       style={{
         height: 35,
         width: 35,
-        backgroundColor:
-          COLOR_ARRAY[randomIntFromInterval(0, COLOR_ARRAY.length - 1)],
+        backgroundColor: color,
         borderRadius: 18,
         marginTop: 10,
         justifyContent: 'center',
