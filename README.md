@@ -15,7 +15,7 @@ React Native app
     ```
       npm install
     ```
-5. At root of the project, run the below command in a terminal
+5. At root of the project, run the below command in a terminal to start the metro server
 
    ```
       npm run start 
