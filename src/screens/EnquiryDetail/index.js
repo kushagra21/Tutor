@@ -2,18 +2,11 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import {COLORS} from '../../utils/constants';
 import TutorCard from '../../components/organism/TutorCard';
+import {connect} from 'react-redux';
 
 class EnquiryDetails extends Component {
-  constructor(props) {
-    super(props);
-    console.log('TutorData : ', props.route.params.tutorData);
-    this.state = {
-      data: props.route.params.tutorData,
-    };
-  }
-
   render() {
-    const {data} = this.state;
+    const {data} = this.props;
     return (
       <View
         style={{
@@ -57,4 +50,10 @@ class EnquiryDetails extends Component {
   }
 }
 
-export default EnquiryDetails;
+function mapStateToProps(state) {
+  return {
+    data: state.selectedTutor,
+  };
+}
+
+export default connect(mapStateToProps)(EnquiryDetails);

@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {View, FlatList} from 'react-native';
 import TutorCard from '../../components/organism/TutorCard';
+import {connect} from 'react-redux';
+import {DISPATCH_ACTION} from '../../utils/constants';
+
 class EnquiryList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      totalData: [],
-      selectedTutor: {},
-    };
-  }
   componentDidMount() {
     this.getDataFromNetwork();
   }
@@ -18,7 +14,7 @@ class EnquiryList extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.dataList && data.dataList.length > 0) {
-          this.setState({totalData: data.dataList});
+          this.props.populateData(data.dataList);
         }
       })
       .catch(error => {
@@ -33,13 +29,14 @@ class EnquiryList extends Component {
         key={index}
         data={data}
         onClick={() => {
-          navigation.navigate('Detail', {tutorData: data});
+          this.props.selectTutor(data);
+          navigation.navigate('Detail');
         }}
       />
     );
   }
   render() {
-    const {totalData} = this.state;
+    const {totalData} = this.props;
     return (
       <View>
         <FlatList
@@ -53,4 +50,22 @@ class EnquiryList extends Component {
   }
 }
 
-export default EnquiryList;
+function mapStateToProps(state) {
+  return {
+    totalData: state.totalTutors,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    populateData: data =>
+      dispatch({type: DISPATCH_ACTION.POPULATE_DATA, data: data}),
+    selectTutor: data =>
+      dispatch({type: DISPATCH_ACTION.SELECT_TUTOR, data: data}),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EnquiryList);
